@@ -1,4 +1,5 @@
 import { lazy } from 'react'
+import {Redirect} from "react-router-dom";
 
 // ** Document title
 const TemplateTitle = '%s - Vuexy React Admin Template'
@@ -31,6 +32,18 @@ const Routes = [
   {
     path: '/user/permissions',
     component: lazy(() => import('../../views/user/permissions'))
+  },
+  {
+    path: '/apps/user/edit',
+    exact: true,
+    component: () => <Redirect to='/apps/user/edit/1' />
+  },
+  {
+    path: '/apps/user/edit/:id',
+    component: lazy(() => import('../../views/user/edit')),
+    meta: {
+      navLink: '/apps/user/edit'
+    }
   },
   {
     path: '/error',

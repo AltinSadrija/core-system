@@ -9,10 +9,20 @@ class User extends Authenticatable
 {
     use HasApiTokens;
     protected $fillable = [
-        'name', 'email', 'password',
+        'fullName',
+        'username',
+        'email',
+        'password',
+        'contact',
+        'role',
+        'company',
+        'country',
+        'status',
+        'currentPlan',
+        'avatar',
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 }

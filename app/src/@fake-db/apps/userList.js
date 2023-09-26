@@ -657,7 +657,7 @@ const data = {
 }
 
 // GET ALL DATA
-mock.onGet('/api/users/list/all-data').reply(200, data.users)
+mock.onGet('http://127.0.0.1:8000/api/users/list/all-data').reply(200, data.users)
 
 // POST: Add new user
 mock.onPost('/apps/users/add-user').reply(config => {
@@ -677,7 +677,7 @@ mock.onPost('/apps/users/add-user').reply(config => {
 })
 
 // GET Updated DATA
-mock.onGet('/api/users/list/data').reply(config => {
+mock.onGet('http://127.0.0.1:8000/api/users/list/data').reply(config => {
   const { q = '', perPage = 10, page = 1, role = null, currentPlan = null, status = null } = config
 
   /* eslint-disable  */

@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::post('register', [AuthController::class, "register"]);
+Route::post('users/register', [AuthController::class, "register"]);
 Route::post('login', [AuthController::class, "login"])->name('login');
 Route::get('users/list/all-data', [AuthController::class, "users"])->name('users');
 Route::get('users/list/data/', [AuthController::class, "usersData"])->name('usersData');
 
+Route::get('users/user', [AuthController::class, "userId"]);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, "user"]);
     Route::post('logout', [AuthController::class, "logout"]);
+
 });

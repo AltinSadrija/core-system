@@ -1,9 +1,10 @@
 import axios from 'axios'
+import backendUrl from "../../../../service/backendUrl";
 
 // ** Get all Data
 export const getAllData = () => {
   return async dispatch => {
-    await axios.get('http://127.0.0.1:8000/api/users/list/all-data').then(response => {
+    await axios.get(backendUrl+'api/users/list/all-data').then(response => {
       dispatch({
         type: 'GET_ALL_DATA',
         data: response.data
@@ -15,7 +16,7 @@ export const getAllData = () => {
 // ** Get data on page or row change
 export const getData = params => {
   return async dispatch => {
-    await axios.get('http://127.0.0.1:8000/api/users/list/data', {
+    await axios.get(`${backendUrl}api/users/list/data`, {
       params: params
     }).then(response => {
       dispatch({
@@ -24,20 +25,18 @@ export const getData = params => {
         totalPages: response.data.total,
         params
       })
-      console.log(response.data)
     })
   }
 }
-
 // ** Get User
 export const getUser = id => {
   return async dispatch => {
-    await axios
-      .get('/api/users/user', { id })
+    await axios.get(backendUrl+'api/users/user', {params: {id:id}})
       .then(response => {
         dispatch({
           type: 'GET_USER',
-          selectedUser: response.data.user
+          selectedUser: response.data.user,
+          id
         })
       })
       .catch(err => console.log(err))
@@ -48,7 +47,7 @@ export const getUser = id => {
 export const addUser = user => {
   return (dispatch, getState) => {
     axios
-      .post('/apps/users/add-user', user)
+      .post(backendUrl+'api/users/register', user)
       .then(response => {
         dispatch({
           type: 'ADD_USER',

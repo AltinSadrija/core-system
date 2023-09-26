@@ -106,7 +106,6 @@ const UsersList = () => {
       })
     )
   }, [dispatch, store.data.length])
-  console.log(store.data)
   // ** User filter options
   const roleOptions = [
     { value: '', label: 'Select Role' },
@@ -208,7 +207,6 @@ const UsersList = () => {
       status: currentStatus.value,
       q: searchTerm
     }
-
     const isFiltered = Object.keys(filters).some(function (k) {
       return filters[k].length > 0
     })
