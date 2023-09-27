@@ -59,8 +59,8 @@ const Login = (props) => {
   const ability = useContext(AbilityContext);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [email, setEmail] = useState("altin@gmail.com");
-  const [password, setPassword] = useState("!Aa12345");
+  const [email, setEmail] = useState("a@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const captchaRef= useRef(null)
   const { register, errors, handleSubmit } = useForm();
   const illustration = skin === "dark" ? "login-v2-dark.svg" : "login-v2.svg",
@@ -78,11 +78,9 @@ const Login = (props) => {
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
           };
-          dispatch(handleLogin(data));
+          dispatch(handleLogin(res));
           // ability.update(res.data.userData.ability);
           history.push(getHomeRouteForLoggedInUser(data.role));
-          console.log(ability)
-          console.log(res.data.userData.ability)
           toast.success(
             <ToastContent
               name={data.fullName || data.username || "John Doe"}

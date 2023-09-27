@@ -13,11 +13,10 @@ export const handleLogin = data => {
       [config.storageTokenKeyName]: data[config.storageTokenKeyName],
       [config.storageRefreshTokenKeyName]: data[config.storageRefreshTokenKeyName]
     })
-
     // ** Add to user, accessToken & refreshToken to localStorage
-    localStorage.setItem('userData', JSON.stringify(data))
-    localStorage.setItem(config.storageTokenKeyName, JSON.stringify(data.accessToken))
-    localStorage.setItem(config.storageRefreshTokenKeyName, JSON.stringify(data.refreshToken))
+    localStorage.setItem('userData', JSON.stringify(data.data))
+    localStorage.setItem(config.storageTokenKeyName, JSON.stringify(data.data.accessToken))
+    localStorage.setItem(config.storageRefreshTokenKeyName, JSON.stringify(data.data.refreshToken))
   }
 }
 

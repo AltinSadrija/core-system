@@ -37,7 +37,6 @@ const Avatar = forwardRef((props, ref) => {
     })
     return results.join('')
   }
-
   return (
     <Tag
       className={classnames('avatar', {

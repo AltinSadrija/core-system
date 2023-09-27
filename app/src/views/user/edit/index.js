@@ -78,7 +78,7 @@ const UserEdit = () => {
     <Alert color='danger'>
       <h4 className='alert-heading'>User not found</h4>
       <div className='alert-body'>
-        User with id: {id} doesn't exist. Check list of all Users: <Link to='/apps/user/list'>Users List</Link>
+        User with id: {id} doesn't exist. Check list of all Users: <Link to='/user/list'>Users List</Link>
       </div>
     </Alert>
   )

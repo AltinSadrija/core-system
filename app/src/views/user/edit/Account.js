@@ -63,8 +63,8 @@ const UserAccountTab = ({ selectedUser }) => {
       return (
         <img
           className='user-avatar rounded mr-2 my-25 cursor-pointer'
-          src={img}
-          alt='user profile avatar'
+          src={require('@src/assets/images/avatars/' + img).default}
+          alt={selectedUser? selectedUser.fullName : 'user profile avatar'}
           height='90'
           width='90'
         />

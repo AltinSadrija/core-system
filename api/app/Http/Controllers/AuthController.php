@@ -40,10 +40,23 @@ class AuthController extends Controller
 
         $cookie = cookie('accessToken', $token, 60 * 24);
 
-        return response([
-            'message' => 'Success',
-            "token" => $token,
-        ])->withCookie($cookie);
+        return response()->json([
+            'accessToken' => $token,
+            'id' => $user->id,
+            'fullName' => $user->fullName,
+            'username' => $user->username,
+            'avatar' => $user->avatar,
+            'email' => $user->email,
+            'role' => $user->role,
+            'ability' => [
+                [
+                    'action' => 'manage',
+                    'subject' => 'all',
+                ],
+            ],
+        ]
+        )
+            ->withCookie($cookie);
     }
 
     public function userId(Request $request)
