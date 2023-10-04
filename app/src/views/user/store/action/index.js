@@ -1,80 +1,82 @@
-import axios from 'axios'
-import backendUrl from "../../../../service/backendUrl";
-
+// import axios from 'axios'
+import api from "../../../../utility/api/axios";
 // ** Get all Data
 export const getAllData = () => {
-  return async dispatch => {
-    await axios.get(backendUrl+'api/users/list/all-data').then(response => {
+  return async (dispatch) => {
+    await api.get("users/list/all-data").then((response) => {
       dispatch({
-        type: 'GET_ALL_DATA',
-        data: response.data
-      })
-    })
-  }
-}
+        type: "GET_ALL_DATA",
+        data: response.data,
+      });
+    });
+  };
+};
 
 // ** Get data on page or row change
-export const getData = params => {
-  return async dispatch => {
-    await axios.get(`${backendUrl}api/users/list/data`, {
-      params: params
-    }).then(response => {
-      dispatch({
-        type: 'GET_DATA',
-        data: response.data.users.data,
-        totalPages: response.data.total,
-        params
+export const getData = (params) => {
+  return async (dispatch) => {
+    await api
+      .get("users/list/data", {
+        params: params,
       })
-    })
-  }
-}
-// ** Get User
-export const getUser = id => {
-  return async dispatch => {
-    await axios.get(backendUrl+'api/users/user', {params: {id:id}})
-      .then(response => {
+      .then((response) => {
         dispatch({
-          type: 'GET_USER',
+          type: "GET_DATA",
+          data: response.data.users.data,
+          totalPages: response.data.total,
+          params,
+        });
+      });
+  };
+};
+// ** Get User
+export const getUser = (id) => {
+  return async (dispatch) => {
+    await api
+      .get("users/user", { params: { id: id } })
+      .then((response) => {
+        dispatch({
+          type: "GET_USER",
           selectedUser: response.data.user,
-          id
-        })
+          id,
+        });
       })
-      .catch(err => console.log(err))
-  }
-}
+      .catch((err) => console.log(err));
+  };
+};
 
 // ** Add new user
-export const addUser = user => {
+export const addUser = (user) => {
   return (dispatch, getState) => {
-    axios
-      .post(backendUrl+'api/users/register', user)
-      .then(response => {
+    api
+      .post("users/register", user)
+      .then((response) => {
         dispatch({
-          type: 'ADD_USER',
-          user
-        })
+          type: "ADD_USER",
+          user,
+        });
       })
       .then(() => {
-        dispatch(getData(getState().users.params))
-        dispatch(getAllData())
+        dispatch(getData(getState().users.params));
+        dispatch(getAllData());
       })
-      .catch(err => console.log(err))
-  }
-}
+      .catch((err) => console.log(err));
+  };
+};
 
 // ** Delete user
-export const deleteUser = id => {
+export const deleteUser = (id) => {
   return (dispatch, getState) => {
-    axios
-      .delete('/apps/users/delete', { id })
-      .then(response => {
+    api
+      .delete("/apps/users/delete", { id })
+      .then((response) => {
         dispatch({
-          type: 'DELETE_USER'
-        })
+          type: "DELETE_USER",
+        });
       })
       .then(() => {
-        dispatch(getData(getState().users.params))
-        dispatch(getAllData())
-      })
-  }
-}
+        dispatch(getData(getState().users.params));
+        dispatch(getAllData());
+      });
+  };
+};

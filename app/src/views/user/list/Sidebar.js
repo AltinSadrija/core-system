@@ -9,12 +9,14 @@ import { isObjEmpty } from '@utils'
 
 // ** Third Party Components
 import classnames from 'classnames'
-import { useForm } from 'react-hook-form'
+import {Controller, useForm} from 'react-hook-form'
 import { Button, FormGroup, Label, FormText, Form, Input } from 'reactstrap'
 
 // ** Store & Actions
 import { addUser } from '../store/action'
 import { useDispatch } from 'react-redux'
+import Flatpickr from "react-flatpickr";
+import '@styles/react/libs/flatpickr/flatpickr.scss'
 
 const SidebarNewUsers = ({ open, toggleSidebar }) => {
   // ** States
@@ -25,7 +27,7 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
   const dispatch = useDispatch()
 
   // ** Vars
-  const { register, errors, handleSubmit } = useForm()
+  const { register, errors,control, handleSubmit } = useForm()
 
   // ** Function to handle form submit
   const onSubmit = values => {
@@ -40,9 +42,11 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
           country: values.country,
           contact: values.contact,
           email: values.email,
+          password: values.password,
           currentPlan: plan,
           status: 'active',
-          avatar: ''
+          avatar: '10.png',
+          birthday: values.birthday[0]
         })
       )
     }
@@ -95,6 +99,37 @@ const SidebarNewUsers = ({ open, toggleSidebar }) => {
             className={classnames({ 'is-invalid': errors['email'] })}
           />
           <FormText color='muted'>You can use letters, numbers & periods</FormText>
+        </FormGroup>
+        <FormGroup>
+          <Label for='password'>
+            Password <span className='text-danger'>*</span>
+          </Label>
+          <Input
+            type='password'
+            name='password'
+            id='password'
+            placeholder='********'
+            innerRef={register({ required: true })}
+            className={classnames({ 'is-invalid': errors['email'] })}
+          />
+          <FormText color='muted'>You must use uppercase, lowercase, numbers & symbols</FormText>
+        </FormGroup>
+        <FormGroup>
+          <Label className='d-block' for='dob'>
+            Date of birth
+          </Label>
+          <Controller
+            id='dob'
+            name='birthday'
+            as={Flatpickr}
+            control={control}
+            placeholder='YYYY-MM-DD'
+            defaultValue=""
+            options={{dateFormat: 'Y-m-d'}}
+            className={classnames('form-control', {
+              'is-invalid': errors.dob
+            })}
+          />
         </FormGroup>
         <FormGroup>
           <Label for='company'>

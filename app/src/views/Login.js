@@ -83,8 +83,8 @@ const Login = (props) => {
           history.push(getHomeRouteForLoggedInUser(data.role));
           toast.success(
             <ToastContent
-              name={data.fullName || data.username || "John Doe"}
-              role={data.role || "admin"}
+              name={res.data.fullName || res.data.username || "John Doe"}
+              role={res.data.role || "admin"}
             />,
             { transition: Slide, hideProgressBar: true, autoClose: 2000 }
           );
